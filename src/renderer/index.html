@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="es" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'">
+  <title>Panto SRT</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="window-drag-region" aria-hidden="true"></div>
+  <main class="shell">
+    <header class="masthead">
+      <span class="brand">Panto SRT <span class="separator">/</span> Automatic Subtitles</span>
+      <button class="theme-toggle" id="themeToggle" aria-label="Cambiar a modo claro" title="Cambiar a modo claro">
+        <svg class="sun-icon" viewBox="0 0 20 20" aria-hidden="true">
+          <circle cx="10" cy="10" r="3.2"></circle>
+          <path d="M10 2v1.5M10 16.5V18M2 10h1.5M16.5 10H18M4.3 4.3l1.1 1.1M14.6 14.6l1.1 1.1M15.7 4.3l-1.1 1.1M5.4 14.6l-1.1 1.1"></path>
+        </svg>
+        <svg class="moon-icon" viewBox="0 0 20 20" aria-hidden="true">
+          <path d="M16.2 12.8A6.7 6.7 0 0 1 7.2 3.8a6.7 6.7 0 1 0 9 9Z"></path>
+        </svg>
+      </button>
+      <button class="language-toggle" id="languageToggle" aria-label="Cambiar a inglés" title="Cambiar a inglés">ES</button>
+    </header>
+
+    <section class="drop-zone" id="dropZone" tabindex="0" role="button" aria-label="Seleccionar un audio o video">
+      <svg class="mic-icon" viewBox="0 0 20 20" aria-hidden="true">
+        <rect x="6.5" y="2.5" width="7" height="10" rx="3.2"></rect>
+        <path d="M4.5 10a5.5 5.5 0 0 0 11 0"></path>
+        <path d="M10 15.5V17"></path>
+      </svg>
+      <strong id="dropTitle">Audio a subtítulos</strong>
+      <span id="dropHint">arrastra un archivo o haz clic para abrir</span>
+    </section>
+
+    <section class="file-card hidden" id="fileCard">
+      <div class="file-mark" id="fileMark" aria-hidden="true">SRT</div>
+      <div class="file-copy">
+        <strong id="fileName"></strong>
+        <small id="fileMeta"></small>
+      </div>
+      <button class="icon-button" id="removeButton" aria-label="Quitar archivo">×</button>
+    </section>
+
+    <section class="progress hidden" id="progressPanel" aria-live="polite">
+      <div class="progress-copy">
+        <strong id="progressLabel">Preparando…</strong>
+        <span id="progressPercent">0%</span>
+      </div>
+      <div class="track"><div id="progressBar"></div></div>
+      <span id="progressTime"></span>
+    </section>
+
+    <section class="editor hidden" id="editorPanel" aria-live="polite">
+      <div class="editor-head">
+        <span id="editorCount"></span>
+        <button class="text-button" id="regroupButton"></button>
+      </div>
+      <div class="clip-list" id="clipList"></div>
+    </section>
+
+    <section class="result hidden" id="resultPanel" aria-live="polite">
+      <span class="check">✓</span>
+      <div><strong id="resultTitle">Listo</strong><span id="resultDetails"></span></div>
+      <button class="icon-button hidden" id="resultReveal" aria-label="Mostrar archivo">⌘</button>
+    </section>
+
+    <p class="error hidden" id="errorMessage" role="alert"></p>
+
+    <div class="actions">
+      <button class="secondary hidden" id="cancelButton">Cancelar</button>
+      <button class="primary" id="generateButton" disabled>Generar subtítulos</button>
+      <button class="primary hidden" id="exportSrtButton"></button>
+      <button class="primary hidden" id="exportXmlButton"></button>
+    </div>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
