@@ -1,101 +1,134 @@
-# Panto SRT
-
-Private, offline transcription: turn voice recordings into timed subtitles for
-DaVinci Resolve. Audio never leaves your machine.
-
 <p align="center">
-  <img src="assets/icons/panto-srt.png" width="96" alt="Panto SRT">
+  <img src="assets/icons/panto-srt.png" width="110" alt="Panto SRT">
 </p>
 
-Panto SRT transcribes audio (or the audio track of a video) locally using the
-open-source [whisper.cpp](https://github.com/ggml-org/whisper.cpp) engine, then
-regroups Whisper's word-level timestamps into clean subtitle clips and exports
-them as **SRT** (drag straight into Resolve as a subtitle track) or **FCPXML**
-(import as a title-generator timeline).
+<h1 align="center">Panto SRT</h1>
 
-- 100% local and private — no accounts, no cloud, no audio uploads
-- English and Spanish out of the box (`Auto` detects either)
-- Clip timing from real word timestamps: no screenshots, no timeline peeking
-- Default 25 fps + 00:00:00 timecode; regroup clips on the fly
-- Minimalist Pantoraya-style UI with light/dark toggle
+<p align="center">
+  <b>Private, offline subtitles from your voice</b><br>
+  Transcribe audio &video → clean timed subtitles for DaVinci Resolve.
+  <br>No cloud. No accounts. Your audio never leaves your machine.
+</p>
+
+<p align="center">
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License: MIT"></a>
+  <img src="https://img.shields.io/badge/macOS-13.4%2B-lightgrey.svg" alt="macOS 13.4+">
+  <img src="https://img.shields.io/badge/Windows-10%2B-0078D6.svg" alt="Windows 10+">
+  <img src="https://img.shields.io/badge/electron-43-blueviolet.svg" alt="Electron">
+  <img src="https://img.shields.io/badge/language-es%20%2F%20en-brightgreen.svg" alt="Spanish / English">
+</p>
+
+<p align="center">
+  <a href="README.es.md">Español</a>
+</p>
+
+---
+
+## Why Panto SRT?
+
+Reviewing raw audio to write subtitles is slow. Panto SRT runs the open-source
+[whisper.cpp](https://github.com/ggml-org/whisper.cpp) engine **locally**,
+reads the real word-level timestamps, and regroups them into clean subtitle
+clips — ready for DaVinci Resolve.
+
+- **100% local & private** — no accounts, no cloud, no uploads
+- **English & Spanish** out of the box (auto-detected)
+- **Precise timing** from actual whisper word timestamps
+- **Clean clips** — character length, max duration and min pause auto-balance
+- **Re-group on the fly** after you edit text
+- **Export SRT** (drag straight onto a Resolve subtitle track) or **FCPXML**
+  (import as a title-generator timeline), 25 fps / timecode from zero
+- Minimalist, Pantoraya-style UI with a **light / dark** toggle
 
 > ☕ Panto SRT is free and open source. If it saves you time, consider
 > [inviting me a coffee on PayPal](https://paypal.me/antoniomartinez75)
-> (`@antoniomartinez75`). It's optional — but deeply appreciated!
+> (`@antoniomartinez75`). Totally optional — but deeply appreciated!
 
-## Requisitos
+---
 
-- macOS 13.4+ (Apple Silicon) o Windows 10/11 x64
-- ~2–6 GB de RAM libre según el modelo elegido
-- Conexión a internet solo la primera vez (descarga del modelo Whisper)
-
-## Desarrollo
+## Getting started
 
 ```bash
+# 1. Install dependencies
 npm install
-npm run prepare:whisper   # compila el motor whisper.cpp (solo la primera vez)
-npm start                 # lanza la app en modo desarrollo
+
+# 2. Build the whisper.cpp engine (first time only — self-contained, ~0.1s if present)
+npm run prepare:whisper
+
+# 3. Run in development
+npm start
 ```
 
-Verificación y pruebas:
+Verify and test:
 
 ```bash
-npm run check   # sintaxis de todos los módulos
-npm test        # tests del motor de subtítulos (grouping, SRT, FCPXML)
+npm run check   # syntax-check every module
+npm test        # subtitle engine tests (grouping, SRT, FCPXML)
 ```
 
-## Modelos
+Requirements: **macOS 13.4+ (Apple Silicon)** or **Windows 10/11 x64**,
+~2–6 GB free RAM depending on the model, and internet only the first time
+(the Whisper model downloads on demand into the app's data folder).
 
-El modelo se descarga bajo demanda a la carpeta de datos de la app la primera
-vez que generas subtítulos. Tamaño recomendado:
+---
 
-| Modelo      | RAM/VRAM | Notas                         |
-|-------------|----------|-------------------------------|
-| `turbo`     | ~1.6 GB  | Por defecto, mejor equilibrio |
-| `medium`    | ~1.5 GB  | Más exacto, más lento         |
-| `small`     | ~466 MB  | Equipos modestos              |
+## Making subtitles
 
-## Generar subtítulos
+1. Drop an audio or video file (MP3, M4A, WAV, MP4, MOV…).
+2. Transcription starts automatically with the **Turbo** model and
+   **auto language detection**, grouping clips at sensible defaults
+   (42 chars, 3.5 s max, 0.2 s min pause).
+3. Review and fix the text inline; hit **Re-group** if you retimed manually.
+4. **Export SRT** or **Export FCPXML**.
 
-1. Arrastra un audio o video (MP3, M4A, WAV, MP4, MOV…).
-2. La transcripción arranca automáticamente con el modelo Turbo y detección
-   automática de idioma. Se agrupan los clips con los límites por defecto
-   (42 caracteres, 3.5 s, pausa mínima 0.2 s).
-3. Revisa y corrige el texto en el editor; usa **Reagrupar** si ajustaste
-   los tiempos manualmente.
-4. **Exportar SRT** o **Exportar FCPXML**.
+In Resolve: `File > Import > Subtitle…` (SRT) or
+`File > Import > Timeline > FCP XML…`. Clips always start at `00:00:00,000`, so
+they land in sync on a timeline that starts at zero.
 
-En Resolve: `File > Import > Subtitle…` (SRT) o `File > Import > Timeline > FCP XML…`.
-Los clips siempre parten de 00:00:00,000; si tu timeline comienza en ese
-punto se importan sincronizados directamente.
+---
 
-## Estructura
+## Models
+
+The Whisper model downloads on demand the first time you generate subtitles.
+Recommended sizes:
+
+| Model  | RAM/VRAM | Notes                      |
+|--------|----------|----------------------------|
+| `turbo`| ~1.6 GB  | Default, best balance      |
+| `medium`| ~1.5 GB  | More accurate, slower      |
+| `small`| ~466 MB  | Low-end machines           |
+
+---
+
+## Project structure
 
 ```
 src/
   main/
-    main.js            ventana + IPC
+    main.js            window + IPC
     lib/
-      whisper.js       motor whisper.cpp (spawn, parseo, progreso)
-      media.js         explorar archivos de audio/video
-      grouping.js      word-timestamps → clips de subtítulos
+      whisper.js       whisper.cpp engine (spawn, parse, progress)
+      media.js         audio/video file introspection
+      grouping.js      word timestamps → subtitle clips
       formats/
-        srt.js         exportador SubRip
-        fcpxml.js      exportador Final Cut Pro XML
+        srt.js         SubRip exporter
+        fcpxml.js      Final Cut Pro XML exporter
   preload/
-    preload.js         puente seguro (contextBridge)
+    preload.js         secure bridge (contextBridge)
   renderer/
-    index.html         interfaz (dark minimalista)
+    index.html         minimal UI
     styles.css
     app.js
 scripts/
-  prepare-whisper.js   prepara motor + modelos
-tests/                 node --test del motor de subtítulos
+  prepare-whisper.js   build engine + (optional) models
+tests/                 node --test subtitle engine
 ```
 
-## Licencias
+---
 
-- Código: [MIT](./LICENSE)
-- Motor: [whisper.cpp](https://github.com/ggml-org/whisper.cpp) (MIT)
-- Modelos Whisper: [OpenAI](https://github.com/openai/whisper) (MIT)
-- Ver `THIRD_PARTY_NOTICES.md`
+## License
+
+- Code: [MIT](./LICENSE)
+- Engine: [whisper.cpp](https://github.com/ggml-org/whisper.cpp) (MIT)
+- Whisper models: [OpenAI](https://github.com/openai/whisper) (MIT)
+- See [THIRD_PARTY_NOTICES.md](./THIRD_PARTY_NOTICES.md)
