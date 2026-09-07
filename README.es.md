@@ -5,15 +5,14 @@
 <h1 align="center">Panto SRT</h1>
 
 <p align="center">
-  <b>Subtítulos privados y offline a partir de tu voz</b><br>
-  Transcribe audio y video → subtítulos limpios y sincronizados para DaVinci Resolve.
-  <br>Sin nube. Sin cuentas. Tu audio nunca sale de tu máquina.
+  <b>Subtítulos automáticos locales y privados</b><br>
+  Convierte cualquier audio o video en un archivo de subtítulos sincronizados para edición de video.<br>
+  Sin nube. Sin cuentas. Tus archivos nunca salen de tu máquina.
 </p>
 
 <p align="center">
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License: MIT"></a>
   <img src="https://img.shields.io/badge/macOS-13.4%2B-lightgrey.svg" alt="macOS 13.4+">
-  <img src="https://img.shields.io/badge/Windows-10%2B-0078D6.svg" alt="Windows 10+">
   <img src="https://img.shields.io/badge/electron-43-blueviolet.svg" alt="Electron">
   <img src="https://img.shields.io/badge/language-es%20%2F%20en-brightgreen.svg" alt="Español / Inglés">
 </p>
@@ -39,6 +38,18 @@ subtítulos limpios, listos para DaVinci Resolve.
 - **Exporta SRT** (arrástralo a una pista de subtítulos de Resolve) o **FCPXML**
   (impórtalo como timeline de títulos), 25 fps / timecode desde cero
 - Interfaz mínima estilo Pantoraya con modo **claro / oscuro**
+
+---
+
+<p align="center">
+  <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="#b87333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="opacity:.8">
+    <path d="M17 8h1a4 4 0 0 1 0 8h-1"/>
+    <path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/>
+    <line x1="6" y1="2" x2="6" y2="4"/>
+    <line x1="10" y1="2" x2="10" y2="4"/>
+    <line x1="14" y1="2" x2="14" y2="4"/>
+  </svg>
+</p>
 
 > ☕ Panto SRT es gratuito y open source. Si te ahorra tiempo, considera
 > [invitarme un café por PayPal](https://paypal.me/antoniomartinez75)
